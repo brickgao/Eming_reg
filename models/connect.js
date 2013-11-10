@@ -42,7 +42,7 @@ connect.prototype.login = function login(callback) {
     });
     res.on('data', function(data) {
     });
-    res.on("end", function() {
+    res.on('end', function() {
     });
   });
   req.write(contents);
