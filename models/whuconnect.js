@@ -37,13 +37,20 @@ whuconnect.prototype.login = function login(callback) {
         headers = res.headers,
         cookies = headers['set-cookie'];
     res.setEncoding('utf8');
-    req.write(contents);
-    result = cookies[0].replace(/path=\//g,'');
+    if(cookies != null) {
+      result = cookies[0].replace(/path=\//g,'');
+    }
     res.on('data', function(data) {
-      resData += data
+      resData += data;
     });
     res.on('end', function() {
-      return callback(result);
+      var reg = RegExp('Successed()', 'gm');
+      if(reg.test(resData) === true) {
+        return callback(true, result);
+      }
+      else {
+        return callback(false, result);
+      }
     });
   });
   req.write(contents);
