@@ -1,8 +1,13 @@
+module.exports = function(app) {
+  app.get('/', function(req, res) {
+    res.render('index', {
+      title: 'E鸣杯报名页面'
+    })
+  });
 
-/*
- * GET home page.
- */
+  app.post('/', function(req, res) {
+  });
 
-exports.index = function(req, res){
-  res.render('index', { title: 'Express' });
-};
+  app.post('/manage', function(req, res) {
+  });
+}
