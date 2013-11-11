@@ -1,11 +1,37 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-  </body>
-</html>
+<%- include header %>
+<form class="form-horizontal" method="post">
+  <legend>报名</legend>
+  <p>报名采用my.whu.edu.cn的数据，用户名为学号，默认密码为身份证后六位。</p>
+  <p>如果存在问题，请联系brickgao#gmail.com</p>
+  &nbsp;
+  <% if (success) { %>
+    <div><%= success %></div>
+  <% } %>
+  <% if (error) { %>
+    <div><%= error %> </div>
+  <% } %>
+  <fieldset>
+    <div class="control-group">
+      <label class="control-label" for="username">用户名</label>
+      <div class="controls">
+        <input type="text" class="input-large" style="height: 28px;" id="username" name="username">
+      </div>
+    </div>
+    <div class="control-group">
+      <label class="control-label" for="passwd">密码</label>
+      <div class="controls">
+        <input type="password" class="input-large" style="height: 28px;" id="passwd" name="passwd">
+      </div>
+    </div>
+    <div class="control-group">
+      <label class="control-label" for="phonenum">联系电话</label>
+      <div class="controls">
+        <input type="text" class="input-large" style="height: 28px;" id="phonenum" name="phonenum">
+      </div>
+    </div>
+    <div class="form-actions">
+      <button type="sumbit" class="btn btn-primary">报名</button>
+    </div>
+  </fieldset>
+</form>
+<%- include footer %>
