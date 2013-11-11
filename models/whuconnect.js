@@ -38,9 +38,7 @@ whuconnect.prototype.login = function login(callback) {
         cookies = headers['set-cookie'];
     res.setEncoding('utf8');
     req.write(contents);
-    cookies.forEach(function(cookie) {
-      result += cookie.replace(/path=\//g,'');
-    });
+    result = cookies[0].replace(/path=\//g,'');
     res.on('data', function(data) {
       resData += data
     });
@@ -72,6 +70,7 @@ whuconnect.prototype.getinfo = function getinfo(cookie, callback) {
       'Cookie': cookie
     }
   };
+  var phonenum = this.phonenum;
   var req = http.get(options, function(res) {
     var pageData = '';
     res.setEncoding('UTF-8');
@@ -81,7 +80,7 @@ whuconnect.prototype.getinfo = function getinfo(cookie, callback) {
     res.on('end', function() {
       var reg1 = RegExp('<li>工号：(.+?)</li>'),
           reg2 = RegExp('<li>部门：(.+?)</li>'),
-          reg3 = RegExp('<li>\s*(.+?)\s*<script>', 'm'),
+          reg3 = RegExp('<li>\\s*(.+?)\\s*<script>\\s*var', 'm'),
           id = pageData.match(reg1)[1],
           college = pageData.match(reg2)[1],
           name = pageData.match(reg3)[1],
@@ -91,9 +90,9 @@ whuconnect.prototype.getinfo = function getinfo(cookie, callback) {
         id: id,
         college: college,
         grade: grade,
-        phonenum: this.phonenum
+        phonenum: phonenum
       }
-      console.log(info);
+      return callback(info);
     });
   });
 }
