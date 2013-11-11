@@ -1,6 +1,7 @@
-function whuconnect(username, passwd) {
+function whuconnect(username, passwd, phonenum) {
   this.username = username;
   this.passwd = passwd;
+  this.phonenum = phonenum;
 }
 
 module.exports = whuconnect;
@@ -78,7 +79,21 @@ whuconnect.prototype.getinfo = function getinfo(cookie, callback) {
       pageData += chunk;
     });
     res.on('end', function() {
-      console.log(pageData);
+      var reg1 = RegExp('<li>工号：(.+?)</li>'),
+          reg2 = RegExp('<li>部门：(.+?)</li>'),
+          reg3 = RegExp('<li>\s*(.+?)\s*<script>', 'm'),
+          id = pageData.match(reg1)[1],
+          college = pageData.match(reg2)[1],
+          name = pageData.match(reg3)[1],
+          grade = id[0] + id[1] + id[2] + id[3] + '级';
+      var info = {
+        name: name,
+        id: id,
+        college: college,
+        grade: grade,
+        phonenum: this.phonenum
+      }
+      console.log(info);
     });
   });
 }
