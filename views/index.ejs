@@ -1,15 +1,22 @@
 <%- include header %>
-<form class="form-horizontal" method="post">
+<form class="form-horizontal" action="/req" method="post">
   <legend>报名</legend>
   <p>报名采用my.whu.edu.cn的数据，用户名为学号，默认密码为身份证后六位。</p>
+  <p>请耐心等待报名结果，报名成功会出现提示。</p>
   <p>如果存在问题，请联系brickgao#gmail.com</p>
-  &nbsp;
   <% if (success) { %>
-    <div><%= success %></div>
+    <div class = "alert alert-success">
+      <a href="#" class="close" data-dismiss="alert">&times;</a>
+      <%= success %>
+    </div>
   <% } %>
   <% if (error) { %>
-    <div><%= error %> </div>
+    <div class = "alert alert-error">
+      <a href="#" class="close" data-dismiss="alert">&times;</a>
+      <%= error %>
+    </div>
   <% } %>
+  &nbsp;
   <fieldset>
     <div class="control-group">
       <label class="control-label" for="username">用户名</label>
