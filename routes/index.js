@@ -33,9 +33,40 @@ module.exports = function(app) {
       con.login(function (flag, cookie) {
         if(flag === true) {
           con.getinfo(cookie, function(info) {
-            s = info.name + '，报名成功了哟~';
-            req.flash('success', s);
-            return res.redirect('/');
+            var user_db = require('../models/user_db.js');
+            var user = new user_db(info);
+            user.find(function(err, doc) {
+              if(err) {
+                req.flash('error', err + '\n系统错误，请联系管理员');
+                return res.redirect('/');
+              }
+              else {
+                if(doc) {
+                  user.update(function(err) {
+                    if(err) {
+                      req.flash('error', err + '\n系统错误，请联系管理员');
+                      return res.redirect('/');
+                    }
+                    else {
+                      req.flash('success', user.info.name + '，报名信息更新成功了哟~');
+                      return res.redirect('/');
+                    }
+                  });
+                }
+                else {
+                  user.insert(function(err, collection) {
+                    if(err) {
+                      req.flash('error', err + '\n系统错误，请联系管理员');
+                      return res.redirect('/');
+                    }
+                    else {
+                      req.flash('success', user.info.name + '，报名成功了哟～');
+                      return res.redirect('/');
+                    }
+                  });
+                }
+              }
+            });
           });
         }
         else {

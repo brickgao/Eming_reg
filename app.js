@@ -9,6 +9,7 @@ var user = require('./routes/user');
 var http = require('http');
 var path = require('path');
 var flash = require('connect-flash');
+var settings = require('./settings');
 
 var app = express();
 
