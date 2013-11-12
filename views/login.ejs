@@ -1,0 +1,29 @@
+<%- include header %>
+<form class="form-horizontal" method="post">
+  <legend>管理页面</legend>
+  <% if (success) { %>
+    <div class = "alert alert-success">
+      <a href="#" class="close" data-dismiss="alert">&times;</a>
+      <%= success %>
+    </div>
+  <% } %>
+  <% if (error) { %>
+    <div class = "alert alert-error">
+      <a href="#" class="close" data-dismiss="alert">&times;</a>
+      <%= error %>
+    </div>
+  <% } %>
+  &nbsp;
+  <fieldset>
+    <div class="control-group">
+      <label class="control-label" for="passwd">密码</label>
+      <div class="controls">
+        <input type="password" class="input-large" style="height: 28px;" id="passwd" name="passwd">
+      </div>
+    </div>
+    <div class="form-actions">
+      <button type="sumbit" class="btn btn-primary">登录</button>
+    </div>
+  </fieldset>
+</form>
+<%- include footer %>

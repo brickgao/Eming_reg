@@ -18,7 +18,10 @@ app.set('port', process.env.PORT || 3000);
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 app.use(express.cookieParser('keyboard cat'));
-app.use(express.session({ cookie: { maxAge: 60000 }}));
+app.use(express.session({ 
+  secret: settings.cookieSecret,
+  cookie: { maxAge: 60000 }
+}));
 app.use(flash());
 app.use(express.favicon());
 app.use(express.logger('dev'));

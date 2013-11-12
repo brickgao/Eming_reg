@@ -77,6 +77,51 @@ module.exports = function(app) {
     }
   });
   
-  app.post('/manage', function(req, res) {
+  app.get('/login', function(req, res) {
+    res.render('login', {
+      title: '管理界面',
+      admin: req.session.admin,
+      success: req.flash('success').toString(),
+      error: req.flash('error').toString()
+    });
+  });
+
+  app.post('/login', function(req, res) {
+    var crypto = require('crypto'),
+        adminuser = require('../models/admin_db.js'),
+        md5 = crypto.createHash('md5'),
+        passwd = md5.update(req.body.passwd).digest('hex'),
+        admin = new adminuser();
+    admin.find(function(err, adminpasswd) {
+      if(err) {
+        req.flash('error', '出现错误:\n' + err);
+        return res.redirect('/login');
+      }
+      else {
+        if(adminpasswd === passwd) {
+          req.session.admin = 'login';
+          console.log(req.session.admin);
+          req.flash('success', '登录成功');
+          return res.redirect('/manage');
+        }
+        else {
+          req.flash('error', '密码错误');
+          return res.redirect('/login');
+        }
+      }
+    });
+  });
+
+  app.get('/manage', function(req, res) {
+    res.render('manage', {
+      title: '管理界面',
+      admin: req.session.admin,
+      success: req.flash('success').toString(),
+      error: req.flash('error').toString()
+    });
+    if(!req.session.admin) {
+      req.flash('error', '请登录');
+      return res.redirect('/login');
+    }
   });
 }
