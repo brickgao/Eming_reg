@@ -100,7 +100,6 @@ module.exports = function(app) {
       else {
         if(adminpasswd === passwd) {
           req.session.admin = 'login';
-          console.log(req.session.admin);
           req.flash('success', '登录成功');
           return res.redirect('/manage');
         }
@@ -113,15 +112,32 @@ module.exports = function(app) {
   });
 
   app.get('/manage', function(req, res) {
-    res.render('manage', {
-      title: '管理界面',
-      admin: req.session.admin,
-      success: req.flash('success').toString(),
-      error: req.flash('error').toString()
-    });
     if(!req.session.admin) {
       req.flash('error', '请登录');
       return res.redirect('/login');
     }
+    else {
+      var output_db = require('../models/output_db.js');
+          output = new output_db();
+      output.getall(function(err, docs) {
+        if (err) {
+          req.flash('error', '出现错误:\n' + err);
+          return res.redirect('/');
+        }
+        res.render('manage', {
+          title: '管理界面',
+          docs: docs,
+          admin: req.session.admin,
+          success: req.flash('success').toString(),
+          error: req.flash('error').toString()
+        });
+      });
+    }
+  });
+
+  app.post('/manage', function(req, res) {
+    req.session.admin = null;
+    req.flash('success', '退出成功');
+    return res.redirect('/login');
   });
 }

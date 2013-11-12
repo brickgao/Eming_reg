@@ -6,6 +6,31 @@
       <%= success %>
     </div>
   <% } %>
+  <p>管理员，欢迎你。</p>
+  <form method="post">
+    <button type="sumbit" class="btn btn-primary">退出</button>
+  </form>
   &nbsp;
-  <p>guangtou!</p>
+  <table class = "table">
+    <thead>
+      <tr>
+        <th>姓名</th>
+        <th>学号</th>
+        <th>年级</th>
+        <th>学院</th>
+        <th>联系方式</th>
+      </tr>
+    </thead>
+    <tbody>
+    <% docs.forEach(function(doc) {%>
+      <tr>
+        <th><%= doc.name %></th>
+        <th><%= doc.id %></th>
+        <th><%= doc.grade %></th>
+        <th><%= doc.college %></th>
+        <th><%= doc.phonenum %></th>
+      </tr>
+    <% }) %>
+    </tbody>
+  </table>
 <%- include footer %>
