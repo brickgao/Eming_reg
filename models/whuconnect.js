@@ -28,7 +28,8 @@ whuconnect.prototype.login = function login(callback) {
       'Host': 'my.whu.edu.cn',
       'Origin': 'http://my.whu.edu.cn',
       'Referer': 'http://my.whu.edu.cn/',
-      'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/30.0.1599.101 Safari/537.36'
+      'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/30.0.1599.101 Safari/537.36',
+      'Content-Length': contents.length
     }
   };
   var req = http.request(options, function(res) {
