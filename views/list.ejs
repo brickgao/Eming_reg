@@ -1,0 +1,33 @@
+<%- include header %>
+  <legend>管理页面</legend>
+  <% if (success) { %>
+    <div class = "alert alert-success">
+      <a href="#" class="close" data-dismiss="alert">&times;</a>
+      <%= success %>
+    </div>
+  <% } %>
+  <% if (error) { %>
+    <div class = "alert alert-success">
+      <a href="#" class="close" data-dismiss="alert">&times;</a>
+      <%= error %>
+    </div>
+  <% } %>
+  <p>以下是报名成功的名单:</p>
+  &nbsp;
+  <table class = "table">
+    <thead>
+      <tr>
+        <th>姓名</th>
+        <th>学院</th>
+      </tr>
+    </thead>
+    <tbody>
+    <% docs.forEach(function(doc) {%>
+      <tr>
+        <th><%= doc.name %></th>
+        <th><%= doc.college %></th>
+      </tr>
+    <% }) %>
+    </tbody>
+  </table>
+<%- include footer %>

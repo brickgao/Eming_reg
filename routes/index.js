@@ -1,7 +1,7 @@
 module.exports = function(app) {
   app.get('/', function(req, res) {
     res.render('index', {
-      title: 'Eming杯报名页面',
+      title: '报名界面',
       success: req.flash('success').toString(),
       error: req.flash('error').toString()
     });
@@ -50,7 +50,7 @@ module.exports = function(app) {
                     }
                     else {
                       req.flash('success', user.info.name + '，报名信息更新成功了哟~');
-                      return res.redirect('/');
+                      return res.redirect('/list');
                     }
                   });
                 }
@@ -62,7 +62,7 @@ module.exports = function(app) {
                     }
                     else {
                       req.flash('success', user.info.name + '，报名成功了哟～');
-                      return res.redirect('/');
+                      return res.redirect('/list');
                     }
                   });
                 }
@@ -142,6 +142,21 @@ module.exports = function(app) {
     return res.redirect('/login');
   });
 
-  app.post('/list', function(req, res) {
-  }
+  app.get('/list', function(req, res) {
+    var output_db = require('../models/output_db.js'),
+        output = new output_db();
+    output.getall(function(err, docs) {
+      if (err) {
+        req.flash('error', '出现错误:\n' + err);
+        return res.redirect('/');
+      }
+      res.render('list', {
+        title: '参赛名单',
+        docs: docs,
+        success: req.flash('success').toString(),
+        error: req.flash('error').toString()
+      });
+    });
+  });
+
 }

@@ -49,7 +49,8 @@
 
       <div class="masthead">
         <ul class="nav nav-pills pull-right">
-          <li class="active"><a href="/">Home</a></li>
+          <li <%if(title === '报名界面') {%> class = "active" <%}%> ><a href="/">Home</a></li>
+          <li <%if(title === '参赛名单') {%> class = "active" <%}%> ><a href="/list">List</a></li>
         </ul>
         <h3 class="muted">Eming杯报名界面</h3>
       </div>
