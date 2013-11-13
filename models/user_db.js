@@ -28,7 +28,7 @@ user_db.prototype.insert = function insert(callback) {
 
 user_db.prototype.update = function update(callback) {
   var id = this.info.id;
-  var phonenum = this.info.phonenum;
+  var email = this.info.email;
   pool.acquire(function(err, db) {
     if(err) {
       return callback(err);
@@ -42,7 +42,7 @@ user_db.prototype.update = function update(callback) {
         id: id
       }, {
         $set: {
-          phonenum: phonenum
+          email: email
         }
       }, function(err, result) {
         pool.release(db);

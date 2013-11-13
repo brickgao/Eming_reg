@@ -1,7 +1,7 @@
-function whuconnect(username, passwd, phonenum) {
+function whuconnect(username, passwd, email) {
   this.username = username;
   this.passwd = passwd;
-  this.phonenum = phonenum;
+  this.email = email;
 }
 
 module.exports = whuconnect;
@@ -78,7 +78,7 @@ whuconnect.prototype.getinfo = function getinfo(cookie, callback) {
       'Cookie': cookie
     }
   };
-  var phonenum = this.phonenum;
+  var email = this.email;
   var req = http.get(options, function(res) {
     var pageData = '';
     res.setEncoding('UTF-8');
@@ -98,7 +98,7 @@ whuconnect.prototype.getinfo = function getinfo(cookie, callback) {
         id: id,
         college: college,
         grade: grade,
-        phonenum: phonenum
+        email: email
       }
       return callback(info);
     });

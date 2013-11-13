@@ -10,7 +10,8 @@ module.exports = function(app) {
   app.post('/req', function(req, res) {
     var username = req.body.username,
         passwd = req.body.passwd,
-        phonenum = req.body.phonenum;
+        email = req.body.email,
+        reg = RegExp('\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*');
     if(username === '') {
       req.flash('error', '没有用户名是不行的哟_(:з」∠)_');
       return res.redirect('/');
@@ -19,17 +20,17 @@ module.exports = function(app) {
       req.flash('error', '没有密码是不行的哟_(:з」∠)_');
       return res.redirect('/');
     }
-    if(phonenum === '') {
-      req.flash('error', '没有电话是不行的哟_(:з」∠)_');
+    if(email === '') {
+      req.flash('error', '没有电子邮件是不行的哟_(:з」∠)_');
       return res.redirect('/');
     }
-    if(isNaN(phonenum) === true) {
-      req.flash('error', '电话怎么不是数字呐，快检查_(:з」∠)_');
+    if(reg.test(email) === false) {
+      req.flash('error', '电子邮件不符合格式呐，快检查_(:з」∠)_');
       return res.redirect('/');
     }
-    if(username != '' && passwd != '' && phonenum != '' && isNaN(phonenum) === false) {
+    if(username != '' && passwd != '' && email != '' && reg.test(email)) {
       var whuconnect = require('../models/whuconnect.js');
-      var con = new whuconnect(username, passwd, phonenum);
+      var con = new whuconnect(username, passwd, email);
       con.login(function (flag, cookie) {
         if(flag === true) {
           con.getinfo(cookie, function(info) {
@@ -140,4 +141,7 @@ module.exports = function(app) {
     req.flash('success', '退出成功');
     return res.redirect('/login');
   });
+
+  app.post('/list', function(req, res) {
+  }
 }
