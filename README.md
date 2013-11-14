@@ -1,4 +1,4 @@
-Eming_reg
+Eming_reg [![Build Status](https://travis-ci.org/brickgao/Eming_reg.png?branch=master)](https://travis-ci.org/brickgao/Eming_reg)
 =========
 
 如你所见，这是Eming杯注册页面的源码。
